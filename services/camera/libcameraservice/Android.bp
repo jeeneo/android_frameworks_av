@@ -266,6 +266,11 @@ cc_library {
         any @ value: ["-DALLOW_NONINCREASING_TIMESTAMPS"],
         default: [],
     }),
+
+    whole_static_libs: select(soong_config_variable("libcameraservice", "ext_lib"), {
+        any @ flag_val: [flag_val],
+        default: ["libcameraservice_ext_lib"],
+    }),
 }
 
 cc_library_static {
@@ -328,4 +333,12 @@ cc_library_static {
         "-Werror",
         "-Wno-ignored-qualifiers",
     ],
+}
+
+cc_library_static {
+    name: "libcameraservice_ext_lib",
+    srcs: [
+        "common/CameraProviderExtension.cpp",
+    ],
+    export_include_dirs: ["."],
 }
